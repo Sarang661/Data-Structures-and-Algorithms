@@ -23,7 +23,7 @@ private:
         
         if(lh==rh){
             // cout<<lh<<" "<<"\n";
-            return (int)pow(2,lh)-1;
+            return (1<<lh)-1;
         }
  
         return 1 + count(root->left) + count(root->right);
