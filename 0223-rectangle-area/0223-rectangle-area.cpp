@@ -5,11 +5,11 @@ public:
            int total_area = (ax2-ax1)*(ay2-ay1) + (bx2-bx1)*(by2-by1);
            int area_to_be_subtracted = 0;
         
-        if(ax2<=bx1 || bx2<=ax1 || ay2<=by1 || by2<=ay1){
+      
+          if(ax2<=bx1 || bx2<=ax1 || ay2<=by1 || by2<=ay1){
             
             return total_area;
         }
-        
        
             int x1 = min(ax2,bx2);
             int x2 = max(bx1,ax1);
