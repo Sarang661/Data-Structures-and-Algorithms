@@ -11,7 +11,7 @@ public:
         }
         
        
-           int x1 = min(ax2,bx2);
+            int x1 = min(ax2,bx2);
             int x2 = max(bx1,ax1);
             int length = abs(x2-x1);
             int y1 = min(ay2, by2);
