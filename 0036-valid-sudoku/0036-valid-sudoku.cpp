@@ -26,7 +26,6 @@ public:
                 }
                 for(auto curr:m2[{i/3,j/3}]){
                     if(curr == num){
-                          cout<<i<<" "<<j<<" "<<"3"<<"\n";
                         return false;
                     }
                 }
