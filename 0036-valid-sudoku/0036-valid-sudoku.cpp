@@ -18,7 +18,7 @@ public:
                     }
                 }
                  for(auto curr:m1[-(j+1)]){
-                       cout<<curr<<"\n";
+                     
                     if(curr == num){
                       
                         return false;
