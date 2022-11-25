@@ -7,7 +7,7 @@ public:
         long long ans = 0;
                long long mod = 1e9 + 7;
         
-        vector<        long long>left(len);
+        vector<long long>left(len);
         vector<        long long>right(len);
         stack<        long long>st;
         
