@@ -1,37 +1,42 @@
 class RandomizedSet {
-    set<int>st;
+private:
+    vector<int>num;
+    map<int,int>index;
 public:
     RandomizedSet() {
         
     }
     
     bool insert(int val) {
-        if(st.find(val)!=st.end()){
+        if(index.find(val)!=index.end()){
+         
             return false;
         }
-        st.insert(val);
+        
+           index[val] = num.size();
+            num.push_back(val);
+        
         return true;
     }
     
     bool remove(int val) {
-         if(st.find(val)==st.end()){
+         if(index.find(val)==index.end()){
+         
             return false;
         }
-        st.erase(val);
+        
+          int ind =  index[val];
+           num[ind] = num[num.size()-1];
+        index[num[num.size()-1]] = ind;
+        num.pop_back();
+        index.erase(val);
         return true;
     }
     
     int getRandom() {
-        int idx = rand()%st.size();
-        int in = 0;
-        for(auto x:st){
-            if(in==idx){
-                return x;
-            }
-            in++;
-        }
+        int ind = rand()%num.size();
         
-        return 0;
+        return num[ind];
     }
 };
 
