@@ -35,6 +35,7 @@ public:
         }
         
         odd->next = prev;
+        
         return head;
         
     }
