@@ -10,31 +10,58 @@
  * };
  */
 class Solution {
+int mod = 1e9 +7;
+    
 private:
     
-    long long findMaxSum( TreeNode*root, long long &ans, long long &totalSum){
+    long long findMaxSum(TreeNode*root, long long &maxSum, long long &totalSum){
         
-        if(root == NULL){
-            
+        if(root==NULL){
             return 0;
         }
+        
+        if(root->left==NULL && root->right==NULL){
+            
+            return root->val;
+        }
+        
+        
+        
+        long long leftSum = findMaxSum(root->left, maxSum, totalSum);
+        long long rightSum = findMaxSum(root->right, maxSum, totalSum);
+        long long node = root->val;
 
-        long long currSum = findMaxSum(root->left, ans, totalSum) + findMaxSum(root->right, ans, totalSum) + root->val;
+        long long currSum = totalSum - leftSum - rightSum - root->val;
+            
+        // cout<<node<<" "<<leftSum<<" "<<rightSum<<" "<<prevSum<<"\n";
+        maxSum = max({maxSum,((leftSum+node+currSum)*rightSum), (leftSum*(rightSum+node+currSum))});
+            
+        return leftSum + rightSum + node;
         
-        ans = max(ans, currSum*(totalSum-currSum));
+    }
+    
+    void findTotalSum(TreeNode*root, long long &totalSum){
         
-        return currSum;
+        if(root==NULL){
+            
+            return;
+        }
+        
+        findTotalSum(root->left, totalSum);
+        totalSum += root->val;
+         findTotalSum(root->right, totalSum);
     }
 public:
     int maxProduct(TreeNode* root) {
         
+        long long maxSum = 0;
+        long long prevVal = 0;
         long long totalSum = 0;
-        long long ans = 0;
-        long long mod = 1e9 + 7;
-        totalSum  = findMaxSum(root, ans, totalSum);
         
-        findMaxSum(root, ans, totalSum);
+        findTotalSum(root, totalSum);
         
-        return ans%mod;
+        findMaxSum(root, maxSum, totalSum);
+        
+        return maxSum%mod;
     }
 };
