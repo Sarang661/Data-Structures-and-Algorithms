@@ -45,7 +45,7 @@ public:
     int maxJump(vector<int>& s) {
         
         int n = s.size();
-        int low = s[n-1] - s[n-2];
+        int low = 0;
         
         int high = s[n-1] - s[0];
         int ans = -1;
