@@ -11,7 +11,7 @@ private:
               
             }
                else{
-                    // cout<<i<<" ";
+
                    if(flag == false){
                        return false;
                    }
@@ -52,7 +52,7 @@ public:
         
         while(low<high){
             int m = low + (high-low)/2;
-            // cout<<m<<" ";
+        
             if(poss(m,s)){
                
                 ans = m;
