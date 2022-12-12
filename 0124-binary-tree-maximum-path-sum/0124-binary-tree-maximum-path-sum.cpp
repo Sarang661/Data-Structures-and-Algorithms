@@ -11,28 +11,27 @@
  */
 class Solution {
 private:
-    int val = 0;
+    int val = INT_MIN;
     int find(TreeNode* root){
         
         if(root==NULL){
             return 0;
         }
-        if(root->left == NULL && root->right == NULL){
-            val = max({val,root->val} );
-            return max({root->val,0});
-        }
-        int node = root->val;
-        int l = find(root->left);
-        int r = find(root->right);
         
-        val = max({val, l+node+r});
+       
+        int node = root->val;
+        
+        int l = max(0, find(root->left));
+        int r = max(0, find(root->right));
+        
+        val = max(val, l+node+r);
   
-        return max({l+node, r+node, node,0});
+        return max(l+node, r+node);
     }
 public:
     int maxPathSum(TreeNode* root) {
         
-        val = root->val;
+   
         find(root);
         
         return val;
