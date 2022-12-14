@@ -1,27 +1,24 @@
 class Solution {
+private:
+    int findMaxRobbery(vector<int>&nums, int index, vector<int>&dp){
+        
+        if(index >= nums.size()){
+            return 0;
+        }
+        if(dp[index] != -1){
+            return dp[index];
+        }
+        
+        int weWillRob = nums[index] + findMaxRobbery(nums,index+2,dp);
+        int weWillNotRob = findMaxRobbery( nums, index+1,dp);
+        
+        return dp[index] = max(weWillRob, weWillNotRob);
+    }
 public:
     int rob(vector<int>& nums) {
         
-        int numHouses = nums.size();
+        vector<int>dp(nums.size(), -1);
         
-        if(numHouses ==1){
-            return nums[0];
-        }
-        
-        int prevHouse1 = nums[0];
-        
-
-        
-        int ans = max(nums[0], nums[1]);
-                int prevHouse2 = ans;
-        for(int house =2; house < numHouses; house++){
-            
-            ans = max( nums[house] + prevHouse1,prevHouse2);
-            prevHouse1 = prevHouse2;
-            prevHouse2 = ans;
-            
-        }
-        
-        return ans;
+        return findMaxRobbery(nums, 0, dp);
     }
 };
