@@ -7,25 +7,29 @@ public:
         int len1 = text1.size();
         int len2 = text2.size();
         
-        vector<vector<int>>dp(len1+1,vector<int>(len2+1,0));
+       vector<int>prev(len2+1, 0);
+       vector<int>curr(len2+1, 0);
         
         for(int i=1; i <= len1; i++){
             
             for(int j = 1; j <= len2; j++){
                 
                 if(text1[i-1] == text2[j-1]){
-                    dp[i][j] = 1 + dp[i-1][j-1];
+                    
+                    curr[j] = 1 + prev[j-1];
                 }
                 else{
-                    dp[i][j] = max( dp[i-1][j], dp[i][j-1] );
+                    curr[j] = max( prev[j], curr[j-1] );
                 }
             }
+            
+            prev = curr;
         }
         
        
         
         
         
-        return dp[len1][len2];
+        return curr[len2];
     }
 };
