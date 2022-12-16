@@ -1,8 +1,7 @@
 class MyQueue {
+    stack<int>input;
+    stack<int>output;
     
-    stack<int>st1;
-    
-    stack<int>st2;
 public:
     MyQueue() {
         
@@ -10,51 +9,40 @@ public:
     
     void push(int x) {
         
-        st1.push(x);
+        while(input.empty() == false){
+            
+            output.push(input.top());
+            input.pop();
+            
+        }
+        
+        input.push(x);
+        
+           while(output.empty() == false){
+            
+            input.push(output.top());
+           output.pop();
+            
+        }
+        
+        
     }
     
     int pop() {
-                while(st1.empty() == false){
-            
-            st2.push(st1.top());
-            st1.pop();
-            
-        }
         
-        int ans = st2.top();
-        st2.pop();
-        while(st2.empty() == false){
-            
-            st1.push(st2.top());
-            st2.pop();
-        }
-        
-        return ans;
-
+        int val = input.top();
+        input.pop();
+        return val;
     }
     
     int peek() {
-                while(st1.empty() == false){
-            
-            st2.push(st1.top());
-            st1.pop();
-            
-        }
         
-        int ans = st2.top();
-        
-        while(st2.empty() == false){
-            
-            st1.push(st2.top());
-            st2.pop();
-        }
-        
-        return ans;
+        return input.top();
     }
     
     bool empty() {
         
-        return st1.size() == 0;
+        return input.size() == 0;
     }
 };
 
