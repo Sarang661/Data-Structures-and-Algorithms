@@ -1,67 +1,34 @@
 #define ll long long int
 class Solution {
 public:
-    int evalRPN(vector<string>& tokens) {
-        
-        
-        ll ans = 0;
-        
-        stack<string>st;
-        
-        ll len = tokens.size();
-         ll curr1 = 0;
-        ll curr2 = 0;
-        ll val = 0;
-        
-        
-        for(ll i=0;  i < len; i++){
-            
-            
-            if(tokens[i] == "+"){
-                
-                 curr1 = stoll(st.top());
-                st.pop();
-                 curr2 = stoll(st.top());
-                 st.pop();
-                
-                 val = curr1 + curr2;
-                st.push(to_string(val));
+   int evalRPN(vector<string>& tokens) {
+    
+       stack<ll>st;
+       
+       ll len = tokens.size();
+       
+       for(auto num:tokens){
+           
+           if(num.size()>1 || isdigit(num[0])){
+               
+               st.push(stoll(num));
+           }
+           else{
+               
+               auto x2 = st.top(); st.pop();
+               auto x1 = st.top(); st.pop();
+               
+               switch(num[0]) {
+                case '+': x1+=x2; break;
+                case '-': x1-=x2; break;
+                case '*': x1*=x2; break;
+                case '/': x1/=x2; break;
             }
-            
-            else if(tokens[i] == "-"){
-                  curr1 = stoi(st.top());
-                st.pop();
-              curr2 = stoi(st.top());
-                 st.pop();
-                
-                val = curr2 - curr1 ;
-                st.push(to_string(val));
-            }
-            else if(tokens[i] == "*"){
-                  curr1 = stoll(st.top());
-                st.pop();
-                curr2 = stoll(st.top());
-                 st.pop();
-                
-                 val = curr2 * curr1 ;
-                st.push(to_string(val));
-                
-            }
-            else if(tokens[i] == "/"){
-                   curr1 = stoll(st.top());
-                st.pop();
-             curr2 = stoll(st.top());
-                 st.pop();
-                
-                val = curr2 / curr1 ;
-                st.push(to_string(val));
-                
-            }
-            else{
-                st.push(tokens[i]);
-            }
-        }
-        
-        return stoll(st.top());
-    }
+            st.push(x1);
+               
+           }
+       }
+       
+       return st.top();
+}
 };
