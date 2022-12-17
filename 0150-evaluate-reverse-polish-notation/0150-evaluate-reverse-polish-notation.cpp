@@ -9,47 +9,51 @@ public:
         stack<string>st;
         
         ll len = tokens.size();
+         ll curr1 = 0;
+        ll curr2 = 0;
+        ll val = 0;
+        
         
         for(ll i=0;  i < len; i++){
             
             
             if(tokens[i] == "+"){
                 
-                ll curr1 = stoll(st.top());
+                 curr1 = stoll(st.top());
                 st.pop();
-                ll curr2 = stoll(st.top());
+                 curr2 = stoll(st.top());
                  st.pop();
                 
-                ll val = curr1 + curr2;
+                 val = curr1 + curr2;
                 st.push(to_string(val));
             }
             
             else if(tokens[i] == "-"){
-                 ll curr1 = stoi(st.top());
+                  curr1 = stoi(st.top());
                 st.pop();
-              ll curr2 = stoi(st.top());
+              curr2 = stoi(st.top());
                  st.pop();
                 
-                ll val = curr2 - curr1 ;
+                val = curr2 - curr1 ;
                 st.push(to_string(val));
             }
             else if(tokens[i] == "*"){
-                 ll curr1 = stoll(st.top());
+                  curr1 = stoll(st.top());
                 st.pop();
-                ll curr2 = stoll(st.top());
+                curr2 = stoll(st.top());
                  st.pop();
                 
-                ll val = curr2 * curr1 ;
+                 val = curr2 * curr1 ;
                 st.push(to_string(val));
                 
             }
             else if(tokens[i] == "/"){
-                  ll curr1 = stoll(st.top());
+                   curr1 = stoll(st.top());
                 st.pop();
-            ll curr2 = stoll(st.top());
+             curr2 = stoll(st.top());
                  st.pop();
                 
-                ll val = curr2 / curr1 ;
+                val = curr2 / curr1 ;
                 st.push(to_string(val));
                 
             }
