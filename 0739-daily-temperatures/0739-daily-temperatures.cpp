@@ -21,6 +21,7 @@ public:
             }
             
             if(temp.size()){
+                
                 ans[index] = temp.top().second - index;
             }
             
