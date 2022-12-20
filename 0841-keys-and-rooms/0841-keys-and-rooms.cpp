@@ -2,15 +2,31 @@ class Solution {
 private:
     
     void visitAllRooms(vector<int>adj[], vector<int>&visited, int node){
+
+        queue<int>level;
+        
+        level.push(node);
         
         visited[node] = 1;
         
-        for(auto num: adj[node]){
-            
-            if(!visited[num]){
+        while(!level.empty()){
+            int size = level.size();
+          
+            for (int index = 0; index < size; index++){
                 
-                visitAllRooms(adj, visited, num);
+                  int currNode = level.front();
+            level.pop();
+            
+            for(auto num: adj[currNode]){
+                
+                if(!visited[num]){
+                level.push(num);
+                }
+                visited[num] = 1;
+                
             }
+            }
+            
         }
     }
 public:
