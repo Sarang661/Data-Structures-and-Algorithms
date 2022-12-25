@@ -7,19 +7,18 @@ private:
         int l = 0;
         int h = nums.size()-1;
         int ans = -1;
-        while(l<=h){
+        while(l<h){
             
             int m = l + (h-l)/2;
             if(nums[m]>val){
-                h = m-1;
+                h = m;
             }
             else{
-                ans = m;
-                l = m+1;
+               l = m+1;
             }
         }
         
-        return ans;
+        return l;
     }
 public:
     vector<int> answerQueries(vector<int>& nums, vector<int>& queries) {
@@ -40,7 +39,14 @@ public:
             int val = queries[j];
             
             int index = bs(prefixSum, val);
+             
+      
             
+             if(prefixSum[index]>val){
+                           index--;
+           
+            }
+
             if(index>=0){
                 ans.push_back(index+1);
             }
