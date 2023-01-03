@@ -5,26 +5,25 @@ public:
         int len = strs.size();
         int col = strs[0].size();
         
-        string curr = "";
+       
         int numCols = 0;
-        string copy = "";
+   
         
         for(int index = 0; index < col; index++){
             
-            curr = "";
+      
             
-            for(int j = 0; j < len; j++){
+            for(int j = 1; j < len; j++){
                 
-                curr+=strs[j][index];
+                if(strs[j-1][index] > strs[j][index]){
+
+                    numCols++;
+                    break;
+                }
+               
             }
             
-            copy = curr;
-            sort(copy.begin(), copy.end());
-            
-            if(copy != curr){
-                
-                numCols++;
-            }
+         
         }
         
         return numCols;
