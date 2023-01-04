@@ -23,31 +23,9 @@ public:
                  
                  return -1;
              }
-            else if(curr == 2){
-                numRounds++;
-            }
-            else if(curr%3 == 0 || curr%3 == 2){
-                
-                numRounds = numRounds + curr/3;
-                
-                curr = curr - 3*(curr/3);
-                
-                 // curr = 5 ->  curr =  curr - 3;
-                 // curr%3 == 1  || curr %3 == 2
-                
-                 numRounds = numRounds + curr/2;
-            }
             else{
                 
-                // curr%3 == 1
-                
-                 numRounds = numRounds + (curr/3 - 1);
-                
-                curr = curr - 3*(curr/3 - 1);
-                
-              
-                
-                 numRounds = numRounds + curr/2;
+                numRounds += (curr +2)/3;
             }
         }
         
