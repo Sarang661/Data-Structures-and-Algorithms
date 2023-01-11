@@ -1,51 +1,21 @@
 class Solution {
-
-private:
-    
-    bool findTotalTime(int n, vector<int>adj[], vector<bool>& hasApple, int &timeReq, int node, vector<int>&vis){
-        
-        if(adj[node].size() == 0){
-          
-            return hasApple[node] == true;
-        }
-        
-        bool curr = false;
-        vis[node] = 1;
-        
-        for(int index = 0; index < adj[node].size(); index++){
-            
-            timeReq+=2;
-            bool check = false;
-            
-            if(vis[adj[node][index]] == 0){
-          check = findTotalTime(n, adj, hasApple, timeReq, adj[node][index], vis);
-            }
-            
-            if(!check){
-                  timeReq-=2;
-            }
-            else{
-                curr = true;
-            }
-        }
-        
-        return (curr || (hasApple[node] == true));
-    }
 public:
-    int minTime(int n, vector<vector<int>>& edges, vector<bool>& hasApple) {
-        
-        int timeReq = 0;
-        vector<int>adj[n];
-        vector<int>vis(n, 0);
-        for(int index = 0; index < edges.size(); index++){
-            
-            adj[edges[index][0]].push_back(edges[index][1]);
-            adj[edges[index][1]].push_back(edges[index][0]);
-            
+    int dfs(int node,int parent,vector<int> adj[],vector<bool>& hasApple){
+        int time=0;
+        for(auto &i:adj[node]){
+            if(i!=parent)
+                time+=dfs(i,node,adj,hasApple);
         }
-        
-        findTotalTime(n, adj, hasApple, timeReq, 0, vis);
-        
-        return timeReq;
+        return (time||hasApple[node])? time+=2:0;
+    }
+    int minTime(int n, vector<vector<int>>& edges, vector<bool>& hasApple) {
+        vector<int> adj[n];
+        for(auto &i:edges){
+            int u=i[0],v=i[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        int ans=dfs(0,-1,adj,hasApple);
+        return ans==0?ans:ans-2; 
     }
 };
