@@ -1,75 +1,57 @@
 class Solution {
 
-    
-            
-public:
-     string res;
-    vector<string>ans;
-    
-    vector<string> restoreIpAddresses(string s) {
-        
-        int p = 0;
-        findAll(s, 0, 0);
-        
-        return ans;
-    }
+vector<string>ans;
+
+string res;
    
+bool isValid(string &s){
     
+    int num = stoi(s);
     
+    if(num>255 || (s[0] == '0' && s.size()>1)){
+        return false;
+    }
     
-    void findAll(string &s, int part, int index){
+    return true;
+}
+void findAllValid(string &s, int index, int part){
+    
+    if(part == 4 && s.size() == index){
+        ans.push_back(res);
+        return;
+    }
+    
+    for(int j = index; j < s.size(); j++){
         
-     
-       if(index == s.size()  && part == 4 ){
-            
-            ans.push_back(res);
-            
-            return;
-        }
+        string curr = s.substr(index, j-index+1);
         
-        
-        for(int j=index ; j < s.size(); j++){
+        if( j-index+1 < 4 && isValid(curr) && part<4){
             
-      
+            part++;
             
-            if( part < 4 && j-index < 3  && validIP(s, index, j)){
-                
-               
-          res.append(s.substr(index, j-index+1));
-                 // cout<<res<<" ";
-                 part++;
-                
-                if(part < 4){
-                    res.push_back('.');
-                }
-                
-               
-                findAll(s, part, j+1);
-                
-                if(part<4){
-                 res.pop_back();
-                }
-                
-                part--;
-                
-                for(int k=0;k <(j-index+1);k++){
-                    res.pop_back();
-                }
+             res += curr;
+            
+            if(part<4){
+                res+=".";
+            }
+            
+            findAllValid(s, j+1, part);
+            
+            if(part < 4){
+                res.pop_back();
+            }
+            part--;
+            
+            for(int k=0;k<curr.size();k++){
+                res.pop_back();
             }
         }
-        
     }
-
-    
-    
-       bool validIP(string s, int start, int end)
-    {
-        string temp = s.substr(start, end-start+1);
-        int ip = stoll(temp);
+}
+public:
+    vector<string> restoreIpAddresses(string s) {
         
-        if(s[start] == '0' && start != end) return false;
-        else if(ip >= 0 && ip <= 255) return true;
-        
-        return false;
+        findAllValid(s,0, 0);
+        return ans;
     }
 };
