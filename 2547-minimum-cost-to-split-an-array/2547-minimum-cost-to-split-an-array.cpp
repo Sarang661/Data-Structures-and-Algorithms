@@ -1,31 +1,13 @@
 class Solution {
-  int dp[1001];
-  int v[1001][1001];
-         
-    int findMinCost(vector<int>&nums, int n, int k,int index){
-        
-        if(index >= n){
-            return 0;
-        }
-        
-        if(dp[index]!= -1){
-            return dp[index];
-        }
-        
-        int mini = INT_MAX;
-        
-        for(int i=index; i<n;i++){
-            mini = min(mini, v[index][i] + findMinCost(nums, n,k,i+1));
-        }
-        
-     return   dp[index] = mini;
-    }
+
 public:
     int minCost(vector<int>& nums, int k) {
         
         int n = nums.size();
         
-       memset(dp, -1, sizeof(dp));
+        vector<vector<int>>v(n,vector<int>(n));
+        vector<int>dp(n+1, INT_MAX);
+        dp[n] = 0;
         
         for(int i=0;i<n;i++){
             
@@ -50,7 +32,12 @@ public:
 
        
         
-        findMinCost(nums, n, k,0);
+     for(int i=n-1;i>=0;i--){
+         for(int j=i;j<n;j++){
+             
+             dp[i] = min(dp[i], v[i][j]+dp[j+1]);
+         }
+     }
         return dp[0];
     }
 };
