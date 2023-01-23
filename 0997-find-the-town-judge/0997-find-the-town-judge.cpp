@@ -2,28 +2,18 @@ class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
         
-        map<int,int>m;
+        vector<int>adj(n+1,0);
         
-        int len = trust.size();
+        for(int i=0;i<trust.size();i++){
+            adj[trust[i][1]]++;
+              adj[trust[i][0]]--;
+        }
+       for(int i=1;i<=n;i++){
+           if(adj[i] == n-1){
+               return i;
+           }
+       }
         
-        if(len == 0 && n==1){
-            return n;
-        }
-        for(int index= 0;index < len; index++){
-            m[trust[index][1]]++;
-        }
-        
-        for(int i=0;i<len;i++){
-            if(m.find(trust[i][0])!=m.end()){
-                m.erase(trust[i][0]);
-            }
-        }
-        
-        for(auto x:m){
-            if(x.second == n-1){
-                return x.first;
-            }
-        }
         
         return -1;
     }
