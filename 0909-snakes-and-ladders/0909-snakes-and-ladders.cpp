@@ -25,7 +25,10 @@ public:
                
             currNum.pop();
             
-          
+              if(curr == n*n){
+                    return steps;
+                }
+            
             for(int index = 1; index <=6; index++){
                 
                 int pos = curr + index;
@@ -73,9 +76,7 @@ public:
                 }
                      
        
-                 if(pos == n*n){
-                    return steps+1;
-                }
+             
                 
            
                 if(board[nextRow][nextCol] == -1){
@@ -84,9 +85,7 @@ public:
                 }
                 else{
                     
-                     if(board[nextRow][nextCol] == n*n){
-                    return steps+1;
-                }
+                 
                
                     currNum.push({board[nextRow][nextCol], steps+1});
                 }
