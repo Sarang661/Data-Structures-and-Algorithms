@@ -2,55 +2,48 @@ class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
         
-              vector<pair<int, int>> adj[n];
-        int K = k;
-        for (auto it : flights)
-        {
-            adj[it[0]].push_back({it[1], it[2]});
-        }
-
-        // Create a queue which stores the node and their distances from the
-        // source in the form of {stops, {node, dist}} with ‘stops’ indicating 
-        // the no. of nodes between src and current node.
-        queue<pair<int, pair<int, int>>> q;
+        vector<int>dis(n,1e9);
         
-        q.push({0, {src, 0}});
-
-        // Distance array to store the updated distances from the source.
-        vector<int> dist(n, 1e9);
-        dist[src] = 0;
-
-        // Iterate through the graph using a queue like in Dijkstra with 
-        // popping out the element with min stops first.
-        while (!q.empty())
-        {
-            auto it = q.front();
+        priority_queue<vector<int>,vector<vector<int>>,greater<vector<int>>>q;
+        vector<vector<int>>adj[n];
+        
+        for(int i=0;i<flights.size();i++){
+            adj[flights[i][0]].push_back({flights[i][1],flights[i][2]});
+        }
+        q.push({0,0,src});
+        
+        dis[src]  = 0;
+        
+        while(q.empty()==false){
+            
+            int numStops = q.top()[0];
+            int distance = q.top()[1];
+            int node = q.top()[2];
             q.pop();
-            int stops = it.first;
-            int node = it.second.first;
-            int cost = it.second.second;
-
-            // We stop the process as soon as the limit for the stops reaches.
-            if (stops > K)
-                continue;
-            for (auto iter : adj[node])
-            {
-                int adjNode = iter.first;
-                int edW = iter.second;
-
-                // We only update the queue if the new calculated dist is
-                // less than the prev and the stops are also within limits.
-                if (cost + edW < dist[adjNode] && stops <= K)
-                {
-                    dist[adjNode] = cost + edW;
-                    q.push({stops + 1, {adjNode, cost + edW}});
+            
+            // cout<<numStops<<" "<<distance<<" "<<node<<"\n";
+            for(auto num:adj[node]){
+                
+                int dist = num[1];
+                int node2 = num[0];
+     
+                if(dis[node2] > dist + distance && numStops < (k+1)){
+                    
+                    if(numStops+1 == (k+1) && node2!=dst){
+continue;}
+                    dis[node2] = dist + distance;
+                    // cout<<numStops<<" "<<node2<<" "<<dis[node2]<<"\n";
+                    q.push({numStops+1,dis[node2],node2});
                 }
             }
         }
-        // If the destination node is unreachable return ‘-1’
-        // else return the calculated dist from src to dst.
-        if (dist[dst] == 1e9)
+                
+       
+        
+        if(dis[dst]==1e9){
             return -1;
-        return dist[dst];
+        }
+
+        return dis[dst];
     }
 };
