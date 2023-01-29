@@ -1,49 +1,32 @@
 class SummaryRanges {
-    vector<int>v;
     set<int>st;
+    
 public:
     SummaryRanges() {
         
     }
     
     void addNum(int value) {
-        if(st.find(value)==st.end()){
-                   st.insert(value);
-        v.push_back(value);
-        sort(v.begin(),v.end());
-        }
-    
+      st.insert(value);
     }
     
     vector<vector<int>> getIntervals() {
+        
         vector<vector<int>>ans;
-        
-        int start = v[0];
-        int end = v[0];
-        
-        for(int i=1;i<v.size();i++){
-            if(v[i] == end+1){
-                end=v[i];
-                  if(i==(v.size()-1)){
-                    ans.push_back({start,end});
-                }
+      
+        for(auto num:st){
+            
+            if(ans.size()>0 && (ans[ans.size()-1][1]+1) == num){
+                
+                ans[ans.size()-1][1] = num;
             }
             else{
-                ans.push_back({start,end});
-                start = v[i];
-                end = v[i];
-                if(i==(v.size()-1)){
-                    ans.push_back({start,end});
-                }
+                ans.push_back({num,num});
             }
         }
         
-        if(ans.size()==0){
-            return {{start,end}};
-        }
-        else{
-            return ans;
-        }
+        return ans;
+        
     }
 };
 
