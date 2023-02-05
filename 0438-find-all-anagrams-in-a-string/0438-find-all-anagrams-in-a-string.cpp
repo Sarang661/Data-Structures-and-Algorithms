@@ -20,9 +20,11 @@ public:
             v2[s[j]-'a']++;
             j++;
         }
+        
         if(v1==v2){
             ans.push_back(i);
         }
+        
         while(j<s.size()){
             v2[s[i]-'a']--;
             v2[s[j]-'a']++;
