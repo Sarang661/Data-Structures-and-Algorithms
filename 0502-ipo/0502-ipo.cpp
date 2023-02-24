@@ -20,7 +20,7 @@ public:
         int index = 0;
         maxProfit.push({0,0});
        
-       while(!maxProfit.empty() && index < len && k > 0){
+       while(!maxProfit.empty() && index < len){
        
             while(index < len && cap[index][0] <= currCapital){
                 
@@ -31,11 +31,11 @@ public:
            
            if(k > 0){
                currCapital += maxProfit.top().first;
-               maxProfit.pop();
                k--;
                
            }
            
+                  maxProfit.pop();
         }
         
 
