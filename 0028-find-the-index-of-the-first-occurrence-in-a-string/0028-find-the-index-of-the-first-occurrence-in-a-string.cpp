@@ -53,19 +53,13 @@ public:
             }
             else{
                 
-                while(start > 0 && needle[start]!=haystack[end]){
+                if(start != 0){
                     
                     start = lps[start-1];
                 }
-                
-                if(needle[start] != haystack[end]){
+                else{
                     end++;
                 }
-                else{
-                            start++;
-                     end++;
-                }
-                
             }
         }
         
