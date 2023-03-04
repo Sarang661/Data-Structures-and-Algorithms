@@ -1,44 +1,28 @@
-#define ll long long int
-
 class Solution {
 public:
     long long countSubarrays(vector<int>& nums, int minK, int maxK) {
-        
-        ll ans = 0;
-        ll n = nums.size();
-        ll start = 0;
-        bool minStart = false;
-        bool maxStart = false;
-        ll minIndex = 0;
-        ll maxIndex = 0;
-        
-        for(int index = 0; index < n; index++){
-            
-            ll curr = nums[index];
-            
-            if(curr < minK || curr > maxK){
-                
-                start = index+1;
-                minStart = false;
-                maxStart = false;
+        long res = 0;
+        bool minFound = false, maxFound = false;
+        int start = 0, minStart = 0, maxStart = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            int num = nums[i];
+            if (num < minK || num > maxK) {
+                minFound = false;
+                maxFound = false;
+                start = i+1;
             }
-            
-            if(curr == minK){
-                minIndex = index;
-                minStart = true;
+            if (num == minK) {
+                minFound = true;
+                minStart = i;
             }
-            
-            if(curr == maxK){
-                maxIndex = index;
-                maxStart = true;
+            if (num == maxK) {
+                maxFound = true;
+                maxStart = i;
             }
-            
-            if(minStart && maxStart){
-                
-                ans += (min(minIndex, maxIndex)-start+1);
+            if (minFound && maxFound) {
+                res += (min(minStart, maxStart) - start + 1);
             }
         }
-        
-        return ans;
+        return res;
     }
 };
