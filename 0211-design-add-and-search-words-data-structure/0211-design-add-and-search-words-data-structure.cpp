@@ -28,7 +28,7 @@ class Trie{
         root->flag = true;
     }
     
-    bool find(string &word, int index, Node*root){
+    bool find(string &word, int index, Node *&root){
         
         if(index == word.size() && root->flag == true){
             return true;
