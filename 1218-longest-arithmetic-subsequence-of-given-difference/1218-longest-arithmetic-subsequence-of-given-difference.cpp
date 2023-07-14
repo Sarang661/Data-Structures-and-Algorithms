@@ -2,25 +2,25 @@ class Solution {
 public:
     int longestSubsequence(vector<int>& arr, int difference) {
         
-        int len = arr.size();
+        map<int,int>longestSub;
+        int ans  = 0;
         
-       map<int,int>dp;
-       
-        
-        int maxi = 0;
-        
-        for(int i = 0; i <len; i++){
+        for(int index = 0; index < arr.size(); index++){
             
-            if(dp.find(arr[i]-difference)==dp.end()){
-                dp[arr[i]] = 1;
+            int curr = arr[index] - difference;
+            
+            if(longestSub.find(curr)!= longestSub.end()){
+                
+                longestSub[arr[index]] = max(longestSub[arr[index]], longestSub[curr]+1);
+                    
+                    
             }
             else{
-                dp[arr[i] ]= 1 + dp[arr[i]-difference];
-                
-                }
-            maxi = max(maxi, dp[arr[i]]);
+                 longestSub[arr[index]]  = 1;
+            }
+            ans = max(ans, longestSub[arr[index]]);
         }
         
-        return maxi;
+        return ans;
     }
 };
