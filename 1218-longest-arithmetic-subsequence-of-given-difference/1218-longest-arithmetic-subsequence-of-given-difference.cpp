@@ -11,7 +11,7 @@ public:
             
             if(longestSub.find(curr)!= longestSub.end()){
                 
-                longestSub[arr[index]] = max(longestSub[arr[index]], longestSub[curr]+1);
+                longestSub[arr[index]] =  longestSub[curr]+1;
                     
                     
             }
