@@ -13,31 +13,28 @@ class Solution {
     
 private:
     
-    int findMaxPathSum(TreeNode* root, int &maxSum){
+    int ans = INT_MIN;
+    
+    int findMaxPathSum(TreeNode* root){
         
         if(root == NULL){
             
             return 0;
         }
         
-       
-        int node = root->val;
+        int left = max(0, findMaxPathSum(root->left));
+        int right = max(0, findMaxPathSum(root->right));
         
-        int leftMaxSum  = max(0, findMaxPathSum(root->left, maxSum));
-        int rightMaxSum = max(0, findMaxPathSum(root->right, maxSum));
+        ans = max(ans, left + right + root->val);
+        return root->val + max(left, right);
         
-        maxSum = max( maxSum, leftMaxSum + rightMaxSum + node);
-  
-        return max(leftMaxSum + node, rightMaxSum + node);
     }
-    
 public:
     int maxPathSum(TreeNode* root) {
         
-        int maxSum = INT_MIN;
+        findMaxPathSum(root);
         
-        findMaxPathSum(root, maxSum);
+        return ans;
         
-        return maxSum;
     }
 };
