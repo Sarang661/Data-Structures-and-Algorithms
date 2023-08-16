@@ -2,9 +2,9 @@ class Node{
     public:
     Node*links[26];
     bool flag = false;
-    
-    
+
 };
+
 bool containsKey(char ch,Node*root){
     
     return root->links[ch-'a']!=NULL;
