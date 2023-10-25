@@ -2,26 +2,25 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         
-        int len = s.size();
+        map<char,int>freq;
         
-        int start = 0;
+        int maxi = 0;
+        int prev = 0;
         
-        map<char,int>position;
-        
-        int ans = 0;
-        
-        for(int curr = 0; curr < len; curr++){
+        for(int index = 0; index < s.size(); index++){
             
-            if(position.find(s[curr])!= position.end()){
-                start = max( start, position[s[curr]]+1);
+            if(freq.find(s[index]) != freq.end()){
+                
+                prev = max(prev, freq[s[index]]+1);
+               
+              
             }
             
-            position[s[curr]] = curr;
-            ans = max(ans, curr-start+1);
-          
+             freq[s[index]] = index;
+            
+            maxi = max(maxi, index - prev +1);
         }
         
-        
-        return ans;
+        return maxi;
     }
 };
