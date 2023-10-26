@@ -10,34 +10,38 @@
  * };
  */
 class Solution {
-    
 private:
-    
-    bool isHeightBalanced = true;
-    
-    int heightBalanced(TreeNode* root){
+
+    int checkHeightBalanced(TreeNode*root, bool &check){
         
-        if( root == NULL){
+        if(!root){
             
             return 0;
         }
         
-        int leftSubtreeHeight = heightBalanced(root->left);
-        int rightSubtreeHeight = heightBalanced(root->right);
         
-        if(abs(leftSubtreeHeight - rightSubtreeHeight) > 1){
+        // traversing the left and right subtree
+        int left = checkHeightBalanced(root->left, check);
+        int right = checkHeightBalanced(root->right, check);
+        
+        // checking if current root of the tree is height balanced or not
+        if(abs(left-right) > 1){
             
-            isHeightBalanced = false;
+            check = false;
         }
         
-        return 1 + max(leftSubtreeHeight,  rightSubtreeHeight);
+        return 1 + max(left, right);
     }
+    
 public:
     bool isBalanced(TreeNode* root) {
         
+        bool check = true;
         
-       heightBalanced(root);
+        // function to check if tree is height balanced or not
         
-        return isHeightBalanced;
+        checkHeightBalanced(root, check);
+        
+        return check;
     }
 };
