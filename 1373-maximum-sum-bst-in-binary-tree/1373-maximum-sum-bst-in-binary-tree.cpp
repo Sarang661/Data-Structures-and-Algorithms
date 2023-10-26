@@ -30,9 +30,9 @@ class Solution {
             return {root->val+left[0]+right[0], min({left[1],right[1],root->val}), max({left[2],right[2],root->val})};
         }
         
-        maxi = max({maxi, left[0], right[0]});
+
       
-        return {-1000, INT_MIN, INT_MAX};
+        return {0, INT_MIN, INT_MAX};
     }
     
 public:
