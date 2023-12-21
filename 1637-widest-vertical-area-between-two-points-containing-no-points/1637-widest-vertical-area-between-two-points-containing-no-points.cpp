@@ -4,13 +4,14 @@ public:
         
         sort(points.begin(), points.end());
         
-        int maxi = 0;
+        int maxArea = 0;
         
-        for(int index = 0; index < points.size()-1; index++){
+        for(int index = 1; index < points.size(); index++){
             
-            maxi = max(maxi, points[index+1][0] - points[index][0]);
+            maxArea = max(maxArea, points[index][0]-points[index-1][0]);
         }
         
-        return maxi;
+        
+        return maxArea;
     }
 };
