@@ -1,47 +1,31 @@
+// https://leetcode.com/problems/minimum-time-to-make-rope-colorful/
+// TC - O(N)
+// SC - O(1)
 class Solution {
 public:
     int minCost(string colors, vector<int>& neededTime) {
-        
-        
-       priority_queue<int>q;
-        
-        int ans = 0;
-
-        q.push(neededTime[0]);
-        
-        int index =1;
-        
-      while(index < colors.size()) {
-            
-           while(index < colors.size() && colors[index] == colors[index-1]){
-                
-                q.push(neededTime[index]);
-               index++;
-               continue;
-                
+        int  n = colors.size();
+       
+        int maxi = INT_MIN;
+        int currSum = 0;
+        int totalVal = 0;
+        for(int i=0;i<n;i++){
+            maxi = INT_MIN;
+            while((i<n-1 && colors[i]==colors[i+1])){
+                maxi = max(neededTime[i],maxi);
+                   currSum += neededTime[i];
+                i++;
             }
+          
+                   currSum += neededTime[i];
+                  maxi=    max(neededTime[i],   maxi);
+                totalVal += currSum - maxi;
+               
+                
             
-            q.pop();
-            
-            while(!q.empty()){
-      
-                ans += q.top();
-                q.pop();
-            }
-            
-            q.push(neededTime[index]);
-          index++;
+             currSum = 0;
+           
         }
-        
-           q.pop();
-            
-            while(!q.empty()){
-      
-                ans += q.top();
-                q.pop();
-            }
-            
-        
-        return ans;
+        return totalVal;
     }
 };
